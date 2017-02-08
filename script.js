@@ -64,47 +64,45 @@ var editor = function (_selectedTexts, _textInputArea) {
 	};
 
 
+	// Renders and displats the confirmation tooltip for saving text
 	that.spawnConfirmBox = function (e) {
 
+		// Cancels action is no text is selected
 		if (that.selection === '')
 			return false;
 
+		// Acquires the mouse pointers X & Y position
 		var x = e.pageX + 'px',
 	        y = e.pageY + 'px',
+
+	        // Acquires mustache template from dom
 	        template = $('#confirmBoxTemplate').html(),
+
+	        // Renders template into jquery element
 	        renderedTemplate = $(Mustache.render(template, {}));
-	        // message = ('<span>Do you want to save this selection?</span>'),
-	        // yes = $('<button class="btn btn-success btn-xs" id="yes">Yes</button>'),
-	        // no = $('<button class="btn btn-danger btn-xs" id="no">No</button>'),
 
-
-	        // div = $('<div>').css({
-	        //     "position": "absolute",
-	        //     "left": x,
-	        //     "top": y
-	        // });
-
-	    // div.addClass("selectionConfirmBox");
-
+	    // Removes confirmation tooltip if it already existing
 	    if (that.confirmationBox)
 	    	that.confirmationBox.remove();
 
-        // div.append(message);
-        // div.append(yes);
-        // div.append(no);
-
+	    // Applies CSS rules to position the tooltip to where the mouse event occuered
         renderedTemplate.css({
     	    "position": "absolute",
             "left": x,
             "top": y
 	    });
 
+        // Appends html element to the dom
         $(document.body).append(renderedTemplate);
+
+        // Adds event listener to tooltips buttons
         $('#yes').click(that.addTextToSelection);
         $('#no').click(that.resetSelection);
-        that.confirmationBox = $(renderedTemplate);
 
+        // Places tooltip element into class instance variable
+        that.confirmationBox = $(renderedTemplate);
 	};
+
 
 	that.addTextToSelection = function () {
 		var _li = $('<li>'),
