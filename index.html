@@ -1,0 +1,92 @@
+<html>
+	<head>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+  		<link rel="stylesheet" href="style.css"/>
+  	</head>
+
+  	<body>
+  		<div class="container-fluid">
+  			<!-- <div class="row">
+  				<div class="col-xs-12">
+
+
+  				</div>
+  			</div> -->
+  			<div class="row">
+	  			<div class="col-xs-8">
+	  				<div class="control-group">
+		  				<div class="form-control" id="textInput" contenteditable="true">
+
+		  				</div>
+		  				<!-- <textarea class="form-control" id="textInput">
+
+		  				</textarea> -->
+		  			</div>
+	  			</div>
+	  			<div class="col-xs-4">
+	  				<ul id="selectedTexts" class="list-unstyled">
+
+	  				</ul>
+	  				<button class="btn btn-danger" id="removeAll">
+	  					Remove All
+	  				</button>
+	  				<button class="btn btn-default" id="export" title="Export a JSON file containing all the selections you've made.">
+	  					Export
+	  				</button>
+	  				<button class="btn btn-default" id="Import" title="Import a JSON file containing selections.">
+	  					Import
+	  				</button>
+	  			</div>
+  			</div>
+  		</div>
+
+
+
+
+  		<!-- Templates -->
+  		<script id="confirmBoxTemplate" type="x-tmpl-mustache">
+			<div class="selectionConfirmBox">
+				<span>Do you want to save this selection?</span>
+				<button class="btn btn-success btn-xs" id="yes">Yes</button>
+				<button class="btn btn-danger btn-xs" id="no">No</button>
+			</div>
+
+		</script>
+
+
+
+
+	<!-- Modal -->
+	<div id="removeAllSelectionsModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <p>
+	        	Are you sure you want to remove all your text snippets?
+	        </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+	        <button type="button" class="btn btn-danger" id="yesDeleteAll" data-dismiss="modal">Yes</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+  		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+  				integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+  				crossorigin="anonymous"></script>
+
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+
+  		<script src="script.js"></script>
+
+  	</body>
+</html>
