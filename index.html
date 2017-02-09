@@ -1,94 +1,138 @@
+<!DOCTYPE HTML>
 <html>
+
 	<head>
+		<title>Text Selector</title>
+		<link rel="stylesheet" href="libs/bootstrap.min.css"/>
+		<link rel="stylesheet" href="style.css"/>
+	</head>
 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<body>
 
-  		<link rel="stylesheet" href="style.css"/>
-  	</head>
+		<!-- Navigation Bar -->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
 
-  	<body>
-  		<div class="container-fluid">
-  			<!-- <div class="row">
-  				<div class="col-xs-12">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Text Selection</a>
+				</div>
 
+				<!-- Dropdown Menu -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+							<ul class="dropdown-menu">
 
-  				</div>
-  			</div> -->
-  			<div class="row">
-	  			<div class="col-xs-8">
-	  				<div class="control-group">
-		  				<div class="form-control" id="textInput" contenteditable="true">
+								<li><a href="#" id="export" title="Exports text selections to a JSON file for backup">Export Saved Snippets</a></li>
+								<li><a href="#" id="import" title="Loads text and a collection of text selections from an exported file">Import Snippets From File</a>
+									<input type="file" id="upload">
+								</li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#" id="removeAll" title="Removes all saved snippets but keeps text">Remove All Saved Snippets</a></li>
+								<li><a href="#" id="removeAll" title="Removes all saved snippets and saved text">Reset Editor</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
 
-		  				</div>
-		  				<!-- <textarea class="form-control" id="textInput">
+			</div>
+		</nav>
 
-		  				</textarea> -->
-		  			</div>
-	  			</div>
-	  			<div class="col-xs-4">
-	  				<ul id="selectedTexts" class="list-unstyled">
+		<!-- Main Container -->
+		<div class="container-fluid">
 
-	  				</ul>
-	  				<button class="btn btn-danger" id="removeAll">
-	  					Remove All
-	  				</button>
-	  				<button class="btn btn-default" id="export" title="Export a JSON file containing all the selections you've made.">
-	  					Export
-	  				</button>
-	  				<button class="btn btn-default" id="Import" title="Import a JSON file containing selections.">
-	  					Import
-	  				</button>
-	  			</div>
-  			</div>
-  		</div>
+			<div class="row">
 
+				<!-- Text editor -->
+				<div class="col-xs-8">
+					<div class="control-group">
+						<div class="form-control" id="textInput" contenteditable="true">
 
+						</div>
+					</div>
+				</div>
 
+				<!-- Saved snippets list -->
+				<div class="col-xs-4">
+					<ul id="selectedTexts" class="list-unstyled">
+						<li class="noSelectedTexts">
+							no saved snippets
+						</li>
+					</ul>
+				</div>
 
-  		<!-- Templates -->
-  		<script id="confirmBoxTemplate" type="x-tmpl-mustache">
+			</div>
+		</div>
+
+		<!-- Modals -->
+
+		<!-- Confirm delete all selections modal -->
+		<div id="removeAllSelectionsModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<div class="modal-content">
+					<div class="modal-body">
+						<p>
+							Are you sure you want to remove all your text snippets?
+						</p>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+						<button type="button" class="btn btn-danger" id="yesDeleteAll" data-dismiss="modal">Yes</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Confirm overwrite from uploaded data modal -->
+		<div id="confirmOverwriteSelectionsModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<div class="modal-content">
+					<div class="modal-body">
+						<p>
+							You have uploaded a file to populate this editor. If you load this file all the data currently in the editor will be removed. Do you want to continue?
+						</p>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+						<button type="button" class="btn btn-danger" id="yesOverwriteAll" data-dismiss="modal">Yes</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Templates -->
+
+		<!-- Template for the confirm selection box -->
+		<script id="confirmBoxTemplate" type="x-tmpl-mustache">
 			<div class="selectionConfirmBox">
 				<span>Do you want to save this selection?</span>
 				<button class="btn btn-success btn-xs" id="yes">Yes</button>
 				<button class="btn btn-danger btn-xs" id="no">No</button>
 			</div>
-
 		</script>
 
-		<script id=""
+		<!-- Template for the saved text box -->
+		<script id="savedTextBox" type="x-tmpl-mustache">
+			<li id="{{id}}">
+				{{selectedText}}
+				<h5>{{title}}</h5>
+				<button id="{{buttonId}}" class="btn btn-danger">Remove</button>
+			</li>
+		</script>
 
+		<!-- Javascripts -->
 
+		<script src="libs/jquery.min.js"></script>
+		<script src="libs/bootstrap.min.js"></script>
+		<script src="libs/mustache.min.js"></script>
+		<script src="script.js"></script>
 
-
-	<!-- Modal -->
-	<div id="removeAllSelectionsModal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-body">
-	        <p>
-	        	Are you sure you want to remove all your text snippets?
-	        </p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
-	        <button type="button" class="btn btn-danger" id="yesDeleteAll" data-dismiss="modal">Yes</button>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
-
-  		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-  				integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
-  				crossorigin="anonymous"></script>
-
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-  		<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
-
-  		<script src="script.js"></script>
-
-  	</body>
+	</body>
 </html>

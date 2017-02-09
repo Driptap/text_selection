@@ -1,6 +1,15 @@
-.container-fluid, .container-fluid > .row, .row > .col-xs-8, .row > .col-xs-4 {
+.container-fluid {
+	height: 90%;
+	position: relative;
+}
+
+.container-fluid > .row, .row > .col-xs-8, .row > .col-xs-4 {
 	height: 100%;
 	position: relative;
+}
+
+.navbar > .container-fluid {
+	height: auto;
 }
 
 #textInput {
@@ -23,6 +32,16 @@
 	border-radius: 3px;
 	padding: 5px;
 	margin-top: 10px;
+}
+
+input#upload {
+	display: none;
+}
+
+.noSelectedTexts {
+	text-align: center;
+	color: #d1d1d1;
+	font-style: italic;
 }
 
 #selectedTexts > li > button {
