@@ -29,3 +29,5 @@ From the root of the repo run:
 ```
 python -m SimpleHTTPServer
 ```
+
+Tested in Google Chrome / Chromium and Mozilla Firefox
