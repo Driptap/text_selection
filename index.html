@@ -30,7 +30,7 @@
 								</li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" id="removeAll" title="Removes all saved snippets but keeps text">Remove All Saved Snippets</a></li>
-								<li><a href="#" id="removeAll" title="Removes all saved snippets and saved text">Reset Editor</a></li>
+								<li><a href="#" id="reset" title="Removes all saved snippets and saved text">Reset Editor</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -64,8 +64,28 @@
 
 			</div>
 		</div>
-
+		<span class="copyright">	&copy; 2017 Sinan Guclu </span>
 		<!-- Modals -->
+
+		<!-- Confirm reset editor modal -->
+		<div id="confirmResetEditorModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<div class="modal-content">
+					<div class="modal-body">
+						<p>
+							Are you sure you want to reset the editor? All text and text snippets will be lost!
+						</p>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+						<button type="button" class="btn btn-danger" id="yesReset" data-dismiss="modal">Yes</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
 
 		<!-- Confirm delete all selections modal -->
 		<div id="removeAllSelectionsModal" class="modal fade" role="dialog">
@@ -120,10 +140,10 @@
 
 		<!-- Template for the saved text box -->
 		<script id="savedTextBox" type="x-tmpl-mustache">
-			<li id="{{id}}">
+			<li id="{{id}}" onmouseover="document.getElementById('{{id}}_span').classList.add('hovering')" onmouseout="document.getElementById('{{id}}_span').classList.remove('hovering')">
 				{{selectedText}}
 				<h5>{{title}}</h5>
-				<button id="{{buttonId}}" class="btn btn-danger">Remove</button>
+				<button id="{{buttonId}}" class="btn btn-xs btn-danger" >Remove</button>
 			</li>
 		</script>
 

@@ -242,6 +242,25 @@ var editor = function (_selectedTexts, _textInputArea) {
 		that.updateLocalStore();
 	};
 
+	// Resets the editor back to default state
+	that.resetEditor = function () {
+
+		var _modal = $('#confirmResetEditorModal'),
+			_confirmedSoReset = function () {
+				_textInputArea.html('');
+				that.removeAllSelectionBoxes(false, true);
+			};
+
+		if (_textInputArea.text().trim().length > 0 &&
+				Object.keys(that.savedTexts).length < 1)
+			_confirmedSoReset();
+
+		else {
+			_modal.modal('show');
+			$('#yesReset', _modal).click(_confirmedSoReset);
+		}
+	};
+
 	// Removes all selection boxes
 	that.removeAllSelectionBoxes = function (e, silent) {
 
@@ -263,7 +282,8 @@ var editor = function (_selectedTexts, _textInputArea) {
 				that.updateLocalStore();
 			};
 
-		if (silent === true) _confirmedSoDelete();
+		if (silent === true || Object.keys(that.savedTexts).length < 1)
+			_confirmedSoDelete();
 
 		else {
 			_modal.modal('show');
@@ -317,6 +337,7 @@ var editor = function (_selectedTexts, _textInputArea) {
 		var _textInputArea = $('#textInput'),
 			_selectedTexts = $('#selectedTexts'),
 			_removeAllButton = $('#removeAll'),
+			_resetButton = $('#reset'),
 			_exportButton = $('#export'),
 			_importButton = $('#import'),
 			_importInput = $('#upload');
@@ -328,6 +349,7 @@ var editor = function (_selectedTexts, _textInputArea) {
 		_textInputArea.on('mouseup', _editor.getText);
 		_textInputArea.on('keyup', _editor.handleKeyup);
 		_removeAllButton.click(_editor.removeAllSelectionBoxes);
+		_resetButton.click(_editor.resetEditor);
 		_exportButton.click(_editor.exportToJson);
 		_importButton.click(function() {
 			_importInput.click();
