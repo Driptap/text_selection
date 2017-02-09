@@ -38,7 +38,7 @@ body {
 	color: lightgrey;
 }
 
-#textInput > .hovering {
+.hovering {
 	border: 1px solid black;
 }
 
